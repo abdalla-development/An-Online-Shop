@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+  <title>Prince n’ princess 👑</title>
+</head>
+
+<body>
+  <!-- NanBar -->
+  <section>
+    <nav class="navbar navbar-expand-lg navbar-light bg-info">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="/static/images/pp-modified.png" alt="" width="30" height="24">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{url_for('home')}}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{url_for('accessories')}}">Accessories</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{url_for('boys')}}">Boys</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{url_for('girls')}}">Girls</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{url_for('cart')}}">Cart <span class="badge bg-secondary"> {{number}}</span></a>
+            </li>
+          </ul>
+            {% if status: %}
+          <a class="btn btn-warning btn-sm" href="{{url_for('login')}}" role="button">Login</a>
+          <a class="btn btn-warning btn-sm" href="{{url_for('register')}}" role="button">Register</a>
+          {% else %}
+          <a class="btn btn-warning btn-sm" href="{{url_for('login')}}" role="button">Login</a>
+          {% endif %}
+          <form class="d-flex" action="{{url_for('home')}}" method="POST">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </section>
+  <!-- Items -->
+  <hr>
+  <hr>
+  <section>
+    {% for item in accessory %}
+    <form action="{{url_for('add', item_id=item.id)}}" method="POST">
+
+      <div class="row">
+        <div class="col-6">
+          <img src="{{item.image_path}}" alt="" width="300" height="240">
+        </div>
+        <div class="col-6">
+          <h4>{{item.name}}</h4>
+          <h5>{{item.price}}</h5>
+          <h5>Sizes</h5>
+
+          <select class="browser-default custom-select" name="color" required>
+            <option value="1">Black</option>
+            <option value="2">Blue</option>
+            <option value="3">Brown</option>
+          </select>
+          <h5>Colors</h5>
+          <select class="browser-default custom-select" name="size" required>
+            <option value="1">One to Two years</option>
+            <option value="2">Two to Three years</option>
+            <option value="3">Three to Four years</option>
+          </select>
+          <h5>Amount</h5>
+          <select class="browser-default custom-select" name="amount" required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+          <h5>{{item.description}}</h5>
+          <button class="btn btn-outline-success" type="submit" >Add to Cart</button>
+
+        </div>
+      </div>
+      <hr>
+
+    </form>
+    {% endfor %}
+  </section>
+  <!-- Footer -->
+  <section>
+    <footer id="footer" class="wrapper style1-alt">
+      <div class="inner">
+        <ul class="menu">
+          <li>&copy; Untitled. All rights reserved.</li>
+          <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+        </ul>
+      </div>
+    </footer>
+  </section>
+</body>
+
+</html>
